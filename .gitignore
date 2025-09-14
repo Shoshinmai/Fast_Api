@@ -1,0 +1,5 @@
+API_env
+prac_query.sql
+.env
+__pycache__
+.cursorignore
