@@ -4,13 +4,22 @@ from .database import init_db, get_session
 from sqlmodel import Session
 from .routers import post, user,auth, vote
 from .config import setting
-
+from fastapi.middleware.cors import CORSMiddleware
 
 
 init_db()
 # SQLModel.metadata.create_all(engine)
 SessionDep = Annotated[Session, Depends(get_session)]
 app = FastAPI()
+
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # my_posts = [{"title" : "Title of the 1st post.", "content": "Content of the post 1", "id": 1}, {"title": "Next type", "content": "Its my type", "id": 2}]
 app.include_router(post.router)
 app.include_router(user.router)
